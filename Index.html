@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🫙 FartBottle™</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f4d35e, #f7b733);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1 {
+    margin-top: 0;
+}
+
+button {
+    margin: 10px;
+    padding: 15px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+#bottle {
+    background: #4CAF50;
+    color: white;
+}
+
+#send {
+    background: #2196F3;
+    color: white;
+}
+
+input {
+    width: 90%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+#status {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    min-height: 50px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🫙 FartBottle™</h1>
+
+    <p>Capture your fart and send it to a friend!</p>
+
+    <button id="bottle">💨 Bottle Fart</button>
+
+    <br>
+
+    <input id="friend" placeholder="Friend's name">
+
+    <br>
+
+    <button id="send">📦 Send Bottle</button>
+
+    <p id="status"></p>
+</div>
+
+<!-- Fart sound -->
+<audio id="fartSound" src="fart.mp3" preload="auto"></audio>
+
+<script>
+let bottled = false;
+
+const bottleBtn = document.getElementById("bottle");
+const sendBtn = document.getElementById("send");
+const status = document.getElementById("status");
+const fartSound = document.getElementById("fartSound");
+
+bottleBtn.addEventListener("click", () => {
+    bottled = true;
+
+    fartSound.currentTime = 0;
+    fartSound.play().catch(() => {
+        console.log("Sound couldn't play.");
+    });
+
+    status.innerHTML = "✅ Fart bottled successfully! 🫙💨";
+});
+
+sendBtn.addEventListener("click", () => {
+    const friend = document.getElementById("friend").value.trim();
+
+    if (!bottled) {
+        status.innerHTML = "⚠️ You need to bottle a fart first!";
+        return;
+    }
+
+    if (friend === "") {
+        status.innerHTML = "⚠️ Enter your friend's name!";
+        return;
+    }
+
+    status.innerHTML =
+        `📦 Your premium bottled fart has been shipped to <strong>${friend}</strong>! 💨😂`;
+
+    bottled = false;
+});
+</script>
+
+</body>
+</html>
